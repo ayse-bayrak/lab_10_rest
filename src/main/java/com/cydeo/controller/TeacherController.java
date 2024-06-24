@@ -3,11 +3,10 @@ package com.cydeo.controller;
 import com.cydeo.dto.ResponseWrapper;
 import com.cydeo.dto.TeacherDTO;
 import com.cydeo.service.TeacherService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -43,7 +42,11 @@ public class TeacherController {
     @GetMapping("{username}")
     public ResponseEntity<ResponseWrapper> getTeacherByUserName(@PathVariable ("username") String username) {
         return ResponseEntity
-                .ok(new ResponseWrapper("Teacher is successfully retrieved.", teacherService.findByUsername(username)));
+                .ok(ResponseWrapper.builder()
+                        .success(true)
+                        .message("Teacher is successfully retrieved.")
+                        .code(200)
+                        .data(teacherService.findByUsername(username)).build());
     }
 
        /*
@@ -57,5 +60,19 @@ public class TeacherController {
            "code":201
            "data":<created teacher data>
      */
+
+    @PostMapping
+    public ResponseEntity<ResponseWrapper> cretaeUser(@RequestBody TeacherDTO teacherDTO) {
+       TeacherDTO createdTeacher = teacherService.createTeacher(teacherDTO);
+        return ResponseEntity
+                .status(HttpStatusCode.valueOf(201))
+                .header("teacherUsername", "{createdTeacher}")
+                .body(ResponseWrapper.builder()
+                        .success(true)
+                        .message("Teacher is successfully created.")
+                        .code(201)
+                        .data(createdTeacher)
+                        .build());
+    }
 
 }
