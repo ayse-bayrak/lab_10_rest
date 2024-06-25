@@ -15,7 +15,7 @@ public class ResponseWrapper {
     private String message;
     private Integer code;
     private Object data;
- //we don't need t create any constructor because we use @Builder
+ //we don't need to create any constructor because we use @Builder
     public ResponseWrapper(String message,Object data, Integer code){
         this.message = message;
         this.data=data;
