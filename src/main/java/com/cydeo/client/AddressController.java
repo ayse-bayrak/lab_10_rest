@@ -3,6 +3,7 @@ package com.cydeo.client;
 import com.cydeo.dto.AddressDTO;
 import com.cydeo.dto.ResponseWrapper;
 import com.cydeo.service.AddressService;
+import com.cydeo.service.FlagService;
 import com.cydeo.service.TemperatureService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,11 +19,13 @@ public class AddressController {
     private final AddressService addressService;
     private final WeatherClient weatherClient;
     private final TemperatureService temperatureService;
+    private final FlagService flagService;
 
-    public AddressController(AddressService addressService, WeatherClient weatherClient, TemperatureService temperatureService) {
+    public AddressController(AddressService addressService, WeatherClient weatherClient, TemperatureService temperatureService, FlagService flagService) {
         this.addressService = addressService;
         this.weatherClient = weatherClient;
         this.temperatureService = temperatureService;
+        this.flagService = flagService;
     }
 
     @GetMapping("{addressNo}")
@@ -30,6 +33,8 @@ public class AddressController {
 
         AddressDTO addressDTO = addressService.findByAddressNo(addressNo);
         addressDTO.setCurrentTemperature(temperatureService.getTemperature(addressDTO.getCountry()));
+
+        addressDTO.setFlag(flagService.getFlag(addressDTO.getCountry()));
         return ResponseEntity
                 .status(HttpStatus.ACCEPTED)
                 .body(new ResponseWrapper("Address " + addressNo + " is successfully retrieved.", addressDTO, 200));
