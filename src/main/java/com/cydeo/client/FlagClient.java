@@ -12,7 +12,7 @@ import java.util.Map;
 @FeignClient(name = "FlagClient", url = "https://restcountries.com/v3.1/name")
 public interface FlagClient {
 
-    @GetMapping("/{country}")
-    List<Map<String, Object>> getFlag(@PathVariable("country") String country);
+    @GetMapping("/{name}")
+    List<Map<String, Object>> getFlag(@PathVariable("name") String country);
 
 }
