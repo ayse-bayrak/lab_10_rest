@@ -6,11 +6,14 @@ import com.cydeo.exception.NotFoundException;
 import com.cydeo.repository.AddressRepository;
 import com.cydeo.service.AddressService;
 import com.cydeo.util.MapperUtil;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AddressServiceImpl implements AddressService {
 
+    @Value("${access_key}")
+    private String ACCESS_KEY = "9f7ff6d180e8ea81483c03dc0209215b";
     private final AddressRepository addressRepository;
     private final MapperUtil mapperUtil;
 

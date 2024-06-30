@@ -41,6 +41,16 @@ public class TeacherController {
         */
     @GetMapping("{username}")
     public ResponseEntity<ResponseWrapper> getTeacherByUserName(@PathVariable ("username") String username) {
+//        // find the teacher based on parameter (username)
+//        TeacherDTO teacher = teacherService.findByUsername(username);
+//        // prepare custom JSON response (ResponseWrapper)
+//        ResponseWrapper responseWrapper = ResponseWrapper.builder()
+//                .success(true)
+//                .message("Teacher is successfully retrieved")
+//                .code(HttpStatus.OK.value())
+//                .data(teacher).build();
+//        //return JSON with the info (ResponseEntity)
+//        return ResponseEntity.ok(responseWrapper);
         return ResponseEntity
                 .ok(ResponseWrapper.builder()
                         .success(true)
@@ -62,16 +72,28 @@ public class TeacherController {
      */
 
     @PostMapping
-    public ResponseEntity<ResponseWrapper> cretaeUser(@RequestBody TeacherDTO teacherDTO) {
-       TeacherDTO createdTeacher = teacherService.createTeacher(teacherDTO);
+    public ResponseEntity<ResponseWrapper> createUser(@RequestBody TeacherDTO teacherDTO) {
+//       // we need to cretae the teacher based on the request body
+//        TeacherDTO createdTeacher = teacherService.createTeacher(teacherDTO);
+//        //customize JSON body
+//        ResponseWrapper responseWrapper=  ResponseWrapper.builder()
+//                .success(true)
+//                .message("Teacher is successfully created.")
+//                .code(201)
+//                .data(createdTeacher)
+//                .build();
+//        // return JSON response with the information
+//        return ResponseEntity.status(HttpStatus.CREATED)
+//                .header("teacherUsername", createdTeacher.getUsername())
+//                .body(responseWrapper);
         return ResponseEntity
                 .status(HttpStatusCode.valueOf(201))
-                .header("teacherUsername", "{createdTeacher}")
+                .header("teacherUsername", teacherService.createTeacher(teacherDTO).getUsername())
                 .body(ResponseWrapper.builder()
                         .success(true)
                         .message("Teacher is successfully created.")
                         .code(201)
-                        .data(createdTeacher)
+                        .data(teacherService.createTeacher(teacherDTO))
                         .build());
     }
 

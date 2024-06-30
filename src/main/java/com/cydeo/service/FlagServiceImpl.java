@@ -1,6 +1,6 @@
 package com.cydeo.service;
 
-import com.cydeo.client.FlagClient;
+import com.cydeo.client.CountryClient;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,10 +9,10 @@ import java.util.Map;
 @Service
 public class FlagServiceImpl implements FlagService{
 
-    private final FlagClient flagClient;
+    private final CountryClient flagClient;
     private static final String ACCESS_KEY = "9f7ff6d180e8ea81483c03dc0209215b";
 
-    public FlagServiceImpl(FlagClient flagClient) {
+    public FlagServiceImpl(CountryClient flagClient) {
         this.flagClient = flagClient;
     }
 
@@ -24,7 +24,6 @@ public class FlagServiceImpl implements FlagService{
             Map<String, Object> flags = (Map<String, Object>)countryInfo.get("flags");
             return (String) flags.get("png");
         }
-
        throw new RuntimeException("Flag not found for country: " + country);
     }
 }

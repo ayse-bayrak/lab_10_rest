@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@JsonInclude(JsonInclude.Include.NON_NULL)  // only get nonnull values, these are Jackson annotation (class level)
+//@JsonInclude(JsonInclude.Include.NON_NULL)  // only get nonnull values, these are Jackson annotation (class level)
 @JsonIgnoreProperties(ignoreUnknown = true) // do not related get method, related to post or put request, if you have anny fields
 public class AddressDTO {
 
@@ -30,4 +30,10 @@ public class AddressDTO {
     private AddressType addressType;
 
     private Integer currentTemperature;
+
+    // for deserialisation
+
+//    public AddressDTO(String addressNo) {
+//        this.addressNo = addressNo;
+//    }
 }

@@ -1,15 +1,15 @@
 package com.cydeo.service.impl;
 
-import com.cydeo.client.FlagClient;
+import com.cydeo.client.CountryClient;
 import com.cydeo.service.FlagService;
 
 import java.util.List;
 import java.util.Map;
 
 public class FlagServiceImpl implements FlagService {
-    private final FlagClient flagClient;
+    private final CountryClient flagClient;
 
-    public FlagServiceImpl(FlagClient flagClient) {
+    public FlagServiceImpl(CountryClient flagClient) {
         this.flagClient = flagClient;
     }
 
